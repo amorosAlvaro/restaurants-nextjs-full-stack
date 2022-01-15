@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useReducer } from 'react';
 import reducers from './Reducers';
 
 const Context = createContext();
@@ -11,3 +11,5 @@ const Provider = ({ children }) => {
     <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>
   );
 };
+
+export default Provider;
