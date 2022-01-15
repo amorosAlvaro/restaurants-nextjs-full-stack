@@ -34,7 +34,11 @@ function Register() {
     const res = await postData('authentication/register', userData);
     console.log('res:', res);
 
-    if (res) {
+    if (res.error) {
+      return dispatch({ type: 'NOTIFY', payload: { error: res.error } });
+    }
+
+    if (res.message) {
       dispatch({ type: 'NOTIFY', payload: { success: true } });
     }
   };
