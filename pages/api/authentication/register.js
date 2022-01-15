@@ -1,12 +1,12 @@
 /* eslint-disable import/no-anonymous-default-export */
-import connectDB from '../../../utils/connectDB';
+import connectDB from '../../../config/connect';
 import Users from '../../../models/userModel';
 import validation from '../../../helpers/validation';
 import bcrypt from 'bcrypt';
 
 connectDB();
 
-const addUser = async (req, res) => {
+export default async (req, res) => {
   switch (req.method) {
     case 'POST':
       await register(req, res);
@@ -35,5 +35,3 @@ const register = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
-
-export default addUser;

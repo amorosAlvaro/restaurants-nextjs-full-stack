@@ -6,16 +6,25 @@ const user = process.env.DB_USER;
 const password = process.env.DB_PASSWORD;
 const name = process.env.DB_NAME;
 
-const uri = `mongodb+srv://${user}:${password}@cluster0.3n50x.mongodb.net/${name}?retryWrites=true&w=majority`;
+const MONGODB_URL = `mongodb+srv://${user}:${password}@cluster0.3n50x.mongodb.net/${name}?retryWrites=true&w=majority`;
 
-async function mongoConnect(uriParam = uri) {
-  try {
-    const mongooseConnect = await mongoose.connect(uriParam);
-    console.log('Connected to mongo');
-    return mongooseConnect;
-  } catch (error) {
-    return process.exit(1);
+const connectDB = () => {
+  if (mongoose.connections[0].readyState) {
+    console.log('Already connected.');
+    return;
   }
-}
+  mongoose.connect(
+    MONGODB_URL,
+    {
+      useNewUrlParser: true,
 
-module.exports = { mongoConnect };
+      useUnifiedTopology: true,
+    },
+    (err) => {
+      if (err) throw err;
+      console.log('Connected to mongodb.');
+    }
+  );
+};
+
+export default connectDB;

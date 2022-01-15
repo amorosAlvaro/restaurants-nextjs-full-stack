@@ -19,7 +19,6 @@ function Toast({ message, handleShow, bgColor }) {
           x
         </button>
       </div>
-
       <div className="toast-body">{message.message}</div>
     </div>
   );

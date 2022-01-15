@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import validation from '../helpers/validation';
 import { Context } from '../store/GlobalState';
+import { postData } from '../services/fetchData';
 
 function Register() {
   const initialState = { userName: '', password: '', cf_password: '' };
@@ -15,9 +16,10 @@ function Register() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
+    dispatch({ type: 'NOTIFY', payload: {} });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errorMessage = validation(userName, password, cf_password);
     if (errorMessage) {
@@ -26,7 +28,10 @@ function Register() {
         payload: { error: errorMessage },
       });
     }
-    dispatch({ type: 'NOTIFY', payload: { success: 'Ok' } });
+    dispatch({ type: 'NOTIFY', payload: { loading: true } });
+
+    const res = await postData('authentication/register', userData);
+    console.log(res);
   };
 
   return (
