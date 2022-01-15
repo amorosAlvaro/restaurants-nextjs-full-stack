@@ -31,7 +31,6 @@ function Register() {
     dispatch({ type: 'NOTIFY', payload: { loading: true } });
 
     const res = await postData('authentication/register', userData);
-    console.log(res);
   };
 
   return (
