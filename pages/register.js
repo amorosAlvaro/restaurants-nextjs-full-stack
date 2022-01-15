@@ -1,8 +1,18 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useState } from 'react';
 
 function Register() {
+  const initialState = { userName: '', password: '', cf_password: '' };
+  const [userData, setUserData] = useState(initialState);
+  const { userName, password, cf_password } = userData;
+
+  const handleChange = (e) => {
+    const { userName, value } = e.target;
+    setUserData({ ...userData, [userName]: value });
+  };
+
   return (
     <>
       <div>
@@ -14,11 +24,12 @@ function Register() {
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">User name</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
+            id="userName"
+            name="userName"
+            value={userName}
+            onChange={handleChange}
           />
         </div>
         <div className="form-group">
@@ -26,16 +37,20 @@ function Register() {
           <input
             type="password"
             className="form-control"
-            id="exampleInputPassword1"
-            placeholder="Password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Confirm Password</label>
           <input
             type="password"
             className="form-control"
-            id="exampleInputPassword1"
+            id="cf_password"
+            name="cf_password"
+            value={cf_password}
+            onChange={handleChange}
             placeholder="Confirm Password"
           />
         </div>
