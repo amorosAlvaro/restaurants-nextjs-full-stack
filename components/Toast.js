@@ -1,26 +1,26 @@
 import React from 'react';
 
-function Toast() {
+function Toast({ message, handleShow, bgColor }) {
   return (
-    <div>
-      <div
-        className="toast align-items-center text-white bg-primary border-0"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
-        <div className="d-flex">
-          <div className="toast-body">
-            Hello, world! This is a toast message.
-          </div>
-          <button
-            type="button"
-            className="btn-close btn-close-white me-2 m-auto"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
+    <div
+      className={`toast show position-fixed text-light ${bgColor}`}
+      style={{ top: '5px', right: '5px', zIndex: 9, minWidth: '280px' }}
+    >
+      <div className={`toast-header ${bgColor} text-light`}>
+        <strong className="mr-auto text-light">{message.title}</strong>
+
+        <button
+          type="button"
+          className="ml-2 mb-1 close text-light"
+          data-dismiss="toast"
+          style={{ outline: 'none' }}
+          onClick={handleShow}
+        >
+          x
+        </button>
       </div>
+
+      <div className="toast-body">{message.message}</div>
     </div>
   );
 }

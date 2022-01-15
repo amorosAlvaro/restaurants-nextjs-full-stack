@@ -1,4 +1,4 @@
-const ACTIONS = {
+export const ACTIONS = {
   NOTIFY: 'NOTIFY',
   AUTHENTICATE: 'AUTHENTICATE',
 };

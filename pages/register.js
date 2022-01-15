@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
 import validation from '../helpers/validation';
+import { Context } from '../store/GlobalState';
 
 function Register() {
   const initialState = { userName: '', password: '', cf_password: '' };
   const [userData, setUserData] = useState(initialState);
   const { userName, password, cf_password } = userData;
+
+  const [state, dispatch] = useContext(Context);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,8 +21,12 @@ function Register() {
     e.preventDefault();
     const errorMessage = validation(userName, password, cf_password);
     if (errorMessage) {
-      console.log(errorMessage);
+      return dispatch({
+        type: 'NOTIFY',
+        payload: { error: errorMessage },
+      });
     }
+    dispatch({ type: 'NOTIFY', payload: { success: 'Ok' } });
   };
 
   return (

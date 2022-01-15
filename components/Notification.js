@@ -10,8 +10,24 @@ function Notification() {
   return (
     <>
       {notification.loading && <Loading />}
-      {notification.error && <Toast />}
-      {notification.success && <Toast />}
+      {notification.error && (
+        <Toast
+          message={{ message: notification.error, title: 'Error' }}
+          handleShow={() => {
+            dispatch({ type: 'NOTIFY', payload: {} });
+          }}
+          bgColor="bg-danger"
+        />
+      )}
+      {notification.success && (
+        <Toast
+          message={{ message: notification.error, title: 'Success' }}
+          handleShow={() => {
+            dispatch({ type: 'NOTIFY', payload: {} });
+          }}
+          bgColor="bg-success"
+        />
+      )}
     </>
   );
 }
