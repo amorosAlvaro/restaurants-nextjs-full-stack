@@ -9,8 +9,8 @@ function Register() {
   const { userName, password, cf_password } = userData;
 
   const handleChange = (e) => {
-    const { userName, value } = e.target;
-    setUserData({ ...userData, [userName]: value });
+    const { name, value } = e.target;
+    setUserData({ ...userData, [name]: value });
   };
 
   return (
