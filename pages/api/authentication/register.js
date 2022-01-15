@@ -23,12 +23,20 @@ const register = async (req, res) => {
     }
     const passwordHash = await bcrypt.hash(password, 2);
 
+    const user = await Users.findOne({ userName });
+    console.log('user:', user);
+    if (user) {
+      return res
+        .status(400)
+        .json({ error: 'This user name is already taken.' });
+    }
+
     const newUser = new Users({
       userName,
       password: passwordHash,
     });
     await newUser.save();
-    res.json({ message: 'Resister successful' });
+    res.status(200).json({ message: 'Resister successful' });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
