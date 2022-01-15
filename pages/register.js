@@ -7,7 +7,6 @@ import { Context } from '../store/GlobalState';
 import { postData } from '../services/fetchData';
 
 function Register() {
-  console.log('test');
   const initialState = { userName: '', password: '', cf_password: '' };
   const [userData, setUserData] = useState(initialState);
   const { userName, password, cf_password } = userData;
@@ -31,7 +30,13 @@ function Register() {
     }
     dispatch({ type: 'NOTIFY', payload: { loading: true } });
 
+    console.log('userData:', userData);
     const res = await postData('authentication/register', userData);
+    console.log('res:', res);
+
+    if (res) {
+      dispatch({ type: 'NOTIFY', payload: { success: true } });
+    }
   };
 
   return (
