@@ -7,6 +7,7 @@ import { Context } from '../store/GlobalState';
 import { postData } from '../services/fetchData';
 
 function Register() {
+  console.log('test');
   const initialState = { userName: '', password: '', cf_password: '' };
   const [userData, setUserData] = useState(initialState);
   const { userName, password, cf_password } = userData;
