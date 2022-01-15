@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
+import validation from '../helpers/validation';
 
 function Register() {
   const initialState = { userName: '', password: '', cf_password: '' };
@@ -13,6 +14,14 @@ function Register() {
     setUserData({ ...userData, [name]: value });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const errorMessage = validation(userName, password, cf_password);
+    if (errorMessage) {
+      console.log(errorMessage);
+    }
+  };
+
   return (
     <>
       <div>
@@ -20,7 +29,11 @@ function Register() {
           <title>Register In</title>
         </Head>
       </div>
-      <form className="mx-auto my-4" style={{ maxWidth: '500px' }}>
+      <form
+        className="mx-auto my-4"
+        style={{ maxWidth: '500px' }}
+        onSubmit={handleSubmit}
+      >
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">User name</label>
           <input
