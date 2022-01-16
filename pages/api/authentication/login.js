@@ -1,7 +1,7 @@
 import connectDB from '../../../config/connect';
 import Users from '../../../models/userModel';
 import bcrypt from 'bcrypt';
-import createAcesToken from '../../../helpers/geToken';
+import createAcesToken from '../../../helpers/createAcesToken';
 import { isResSent } from 'next/dist/shared/lib/utils';
 
 connectDB();
