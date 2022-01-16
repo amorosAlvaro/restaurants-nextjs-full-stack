@@ -1,8 +1,22 @@
-/* eslint-disable jsx-a11y/role-supports-aria-props */
-import React from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
+import DataContext from '../store/GlobalContext';
+import { useRouter } from 'next/router';
+import Cookie from 'js-cookie';
 
 function NavBar() {
+  const router = useRouter();
+  const [state, dispatch] = useContext(DataContext);
+  const { authentication } = state;
+
+  const handleLogout = () => {
+    Cookie.remove('user', { path: 'api/authentication/accessToken' });
+    localStorage.removeItem('firstLogin');
+    dispatch({ type: 'AUTHENTICATE', payload: {} });
+    dispatch({ type: 'NOTIFY', payload: { success: 'Logged out!' } });
+    return router.push('/');
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link href="/">
@@ -10,60 +24,40 @@ function NavBar() {
           <i className="fas fa-utensils" aria-hidden="true"></i>
         </a>
       </Link>
-      {/* <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button> */}
-      <div className="collapse navbar-collapse justify-content-end">
+      <div className="navbar-collapse justify-content-end">
         <ul className="navbar-nav">
-          <li className="nav-item">
-            <Link href="/favorites">
-              <a className="nav-link">
-                <i className="fab fa-gratipay" aria-hidden="true">
-                  Favorites
-                </i>
-              </a>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link href="/signin">
-              <a className="nav-link">
-                <i className="fas fa-user" aria-hidden="true">
-                  Sign In
-                </i>
-              </a>
-            </Link>
-          </li>
-          {/* <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdownMenuLink"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              User Name
-            </a>
-            <div
-              className="dropdown-menu"
-              aria-labelledby="navbarDropdownMenuLink"
-            >
-              <a className="dropdown-item" href="#">
-                Profile
-              </a>
-              <a className="dropdown-item" href="#">
-                Logout
-              </a>
-            </div>
-          </li> */}
+          {Object.keys(authentication).length !== 0 && (
+            <li className="nav-item">
+              <Link href="/favorites">
+                <a className="nav-link">
+                  <i className="fab fa-gratipay " justif aria-hidden="true">
+                    Favorites
+                  </i>
+                </a>
+              </Link>
+            </li>
+          )}
+          {Object.keys(authentication).length === 0 ? (
+            <li className="nav-item">
+              <Link href="/signin">
+                <a className="nav-link">
+                  <i className="fas fa-user" aria-hidden="true">
+                    Sign In
+                  </i>
+                </a>
+              </Link>
+            </li>
+          ) : (
+            <li className="nav-item">
+              <Link href="/signin">
+                <a className="nav-link" onClick={handleLogout}>
+                  <i className="fas fa-user" aria-hidden="true">
+                    Log Out
+                  </i>
+                </a>
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

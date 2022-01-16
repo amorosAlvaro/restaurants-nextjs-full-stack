@@ -1,5 +1,16 @@
 const baseUrl = 'http://localhost:3000/';
 
+const getData = async (url, token) => {
+  const res = await fetch(`${baseUrl}/api/${url}`, {
+    method: 'GET',
+    headers: {
+      Authorization: token,
+    },
+  });
+  const data = await res.json();
+  return data;
+};
+
 const postData = async (url, post, token) => {
   const res = await fetch(`${baseUrl}/api/${url}`, {
     method: 'POST',
@@ -14,4 +25,4 @@ const postData = async (url, post, token) => {
   return data;
 };
 
-export { postData };
+export { postData, getData };

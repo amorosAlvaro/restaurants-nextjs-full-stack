@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
 import validation from '../helpers/validation';
-import { Context } from '../store/GlobalState';
+import DataContext from '../store/GlobalContext';
 import { postData } from '../services/fetchData';
 
 function Register() {
@@ -11,7 +12,7 @@ function Register() {
   const [userData, setUserData] = useState(initialState);
   const { userName, password, cf_password } = userData;
 
-  const [state, dispatch] = useContext(Context);
+  const [state, dispatch] = useContext(DataContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,9 +31,7 @@ function Register() {
     }
     dispatch({ type: 'NOTIFY', payload: { loading: true } });
 
-    console.log('userData:', userData);
     const res = await postData('authentication/register', userData);
-    console.log('res:', res);
 
     if (res.error) {
       return dispatch({ type: 'NOTIFY', payload: { error: res.error } });

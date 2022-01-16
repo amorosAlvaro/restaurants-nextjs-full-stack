@@ -24,7 +24,6 @@ const register = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, 2);
 
     const user = await Users.findOne({ userName });
-    console.log('user:', user);
     if (user) {
       return res
         .status(400)
