@@ -8,7 +8,7 @@ const Home = (props) => {
   console.log('restaurants in home como:', restaurants);
 
   return (
-    <div>
+    <div className="restaurants">
       <Head>
         <title>Home</title>
       </Head>
