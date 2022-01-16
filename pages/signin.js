@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
-import validation from '../helpers/validation';
 import { Context } from '../store/GlobalState';
 import { postData } from '../services/fetchData';
+import Cookie from 'json-cookie';
 
 function SignIn() {
   const initialState = { userName: '', password: '' };
@@ -24,15 +25,23 @@ function SignIn() {
 
     dispatch({ type: 'NOTIFY', payload: { loading: true } });
 
-    const res = await postData('authentication/register', userData);
+    const res = await postData('authentication/login', userData);
 
     if (res.error) {
       return dispatch({ type: 'NOTIFY', payload: { error: res.error } });
     }
 
-    if (res.message) {
-      dispatch({ type: 'NOTIFY', payload: { success: true } });
-    }
+    dispatch({ type: 'NOTIFY', payload: { success: true } });
+    dispatch({
+      type: 'AUTHENTICATE',
+      payload: { token: res.access_token, userName: res.userName },
+    });
+
+    Cookie.set('access_token', res.access_token, {
+      path: 'api/authentication/accessToken',
+    });
+
+    localStorage.setItem('token', true);
   };
   return (
     <>
@@ -41,15 +50,20 @@ function SignIn() {
           <title>Sign In</title>
         </Head>
       </div>
-      <form className="mx-auto my-4" style={{ maxWidth: '500px' }}>
+      <form
+        className="mx-auto my-4"
+        style={{ maxWidth: '500px' }}
+        onSubmit={handleSubmit}
+      >
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">User name</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
+            id="userName"
+            name="userName"
+            value={userName}
+            onChange={handleChange}
           />
         </div>
         <div className="form-group">
@@ -58,7 +72,9 @@ function SignIn() {
             type="password"
             className="form-control"
             id="exampleInputPassword1"
-            placeholder="Password"
+            name="password"
+            value={password}
+            onChange={handleChange}
           />
         </div>
         <div className="form-check"></div>
