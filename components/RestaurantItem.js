@@ -1,6 +1,25 @@
 import React from 'react';
+import Link from 'next/link';
 
 function RestaurantItem({ restaurant }) {
+  const userLink = () => {
+    return (
+      <>
+        <Link href={`restaurant/${restaurant._id}`}>
+          <a className="btn btn-info" style={{ marginRight: '5px', flex: 1 }}>
+            View
+          </a>
+        </Link>
+        <button
+          className="btn btn-success"
+          style={{ marginLeft: '5px', flex: 1 }}
+        >
+          Favorites
+        </button>
+      </>
+    );
+  };
+
   return (
     <div className="card" style={{ width: '18rem' }}>
       <img
@@ -14,9 +33,7 @@ function RestaurantItem({ restaurant }) {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
-        <a href="#" className="btn btn-primary">
-          Go somewhere
-        </a>
+        <div className="row justify-content-between mx-0">{userLink()}</div>
       </div>
     </div>
   );
