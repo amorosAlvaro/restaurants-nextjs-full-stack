@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
 import DataContext from '../store/GlobalContext';
 import { postData } from '../services/fetchData';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 
 function SignIn() {
   const initialState = { userName: '', password: '' };
@@ -13,6 +14,8 @@ function SignIn() {
   const { userName, password } = userData;
 
   const [state, dispatch] = useContext(DataContext);
+  const { authentication } = state;
+  const router = useRouter();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,6 +46,10 @@ function SignIn() {
 
     localStorage.setItem('token', true);
   };
+
+  useEffect(() => {
+    if (Object.keys(authentication).length !== 0) router.push('/');
+  }, [authentication]);
   return (
     <>
       <div>
