@@ -3,6 +3,9 @@ import connectDB from '../../../config/connect';
 import Users from '../../../models/userModel';
 import validation from '../../../helpers/validation';
 import bcrypt from 'bcrypt';
+import createAccessToken from '../../../helpers/geToken';
+import createAcesToken from '../../../helpers/geToken';
+import { isResSent } from 'next/dist/shared/lib/utils';
 
 connectDB();
 
@@ -28,7 +31,11 @@ const login = async (req, res) => {
       return res.status(400).json({ error: 'Incorrect password' });
     }
 
-    res.status(200).json({ message: 'Resister successful' });
+    const access_token = createAcesToken({ id: isResSent._id });
+
+    res
+      .status(200)
+      .json({ message: 'Login successful', access_token, userName });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
