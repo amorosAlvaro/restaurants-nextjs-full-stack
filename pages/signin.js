@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import DataContext from '../store/GlobalContext';
 import { postData } from '../services/fetchData';
-import Cookie from 'json-cookie';
+import Cookies from 'js-cookie';
 
 function SignIn() {
   const initialState = { userName: '', password: '' };
@@ -37,7 +37,7 @@ function SignIn() {
       payload: { token: res.access_token, userName: res.userName },
     });
 
-    Cookie.set('access_token', res.access_token, {
+    Cookies.set('access_token', res.access_token, {
       path: 'api/authentication/accessToken',
     });
 
