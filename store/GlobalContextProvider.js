@@ -1,11 +1,10 @@
-import { createContext, useReducer, useEffect } from 'react';
+import { useReducer, useEffect } from 'react';
 import { getData } from '../services/fetchData';
 import reducers from './Reducers';
-
-const Context = createContext();
+import DataContext from './GlobalContext';
 
 const Provider = ({ children }) => {
-  const initialState = { notification: {}, authentication: {} };
+  const initialState = { authentication: {}, notification: {} };
   const [state, dispatch] = useReducer(reducers, initialState);
 
   useEffect(() => {
@@ -14,10 +13,6 @@ const Provider = ({ children }) => {
       console.log('provider login data:', login);
 
       getData('authentication/accessToken', login).then((res) => {
-        console.log('res', res);
-        console.log('res.access_token', res.access_token);
-        console.log('res.userName', res.userName);
-
         dispatch({
           type: 'AUTHENTICATE',
           payload: {
@@ -30,8 +25,10 @@ const Provider = ({ children }) => {
   }, []);
 
   return (
-    <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>
+    <DataContext.Provider value={[state, dispatch]}>
+      {children}
+    </DataContext.Provider>
   );
 };
 
-export { Context, Provider };
+export default Provider;
