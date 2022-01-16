@@ -33,5 +33,5 @@ const restaurantSchema = new mongoose.Schema({
 });
 
 let Dataset =
-  mongoose.models.restaurant || mongoose.model('product', restaurantSchema);
+  mongoose.models.restaurant || mongoose.model('restaurant', restaurantSchema);
 export default Dataset;

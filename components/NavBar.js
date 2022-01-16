@@ -24,15 +24,13 @@ function NavBar() {
           <i className="fas fa-utensils" aria-hidden="true"></i>
         </a>
       </Link>
-      <div className="navbar-collapse justify-content-end">
+      <div className="navbar-collapse">
         <ul className="navbar-nav">
           {Object.keys(authentication).length !== 0 && (
             <li className="nav-item">
               <Link href="/favorites">
                 <a className="nav-link">
-                  <i className="fab fa-gratipay " justif aria-hidden="true">
-                    Favorites
-                  </i>
+                  <i className="fab fa-gratipay justif">Favorites</i>
                 </a>
               </Link>
             </li>
