@@ -13,7 +13,10 @@ function DetailRestaurant() {
 }
 
 export async function getServerSideProps({ params: { id } }) {
-  return {};
+  const res = await getData(`restaurants/${id}`);
+  console.log(res.restaurant);
+  return {
+    props: { restaurant: res.restaurant },
+  };
 }
-
 export default DetailRestaurant;

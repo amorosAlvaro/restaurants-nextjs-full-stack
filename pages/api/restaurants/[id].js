@@ -6,21 +6,21 @@ connectDB();
 export default async (req, res) => {
   switch (req.method) {
     case 'GET':
-      await getProduct(req, res);
+      await getRestaurantById(req, res);
       break;
   }
 };
 
-const getProduct = async (req, res) => {
+const getRestaurantById = async (req, res) => {
   try {
     const { id } = req.query;
 
-    const product = await Restaurant.findById(id);
-    if (!product)
-      return res.status(400).json({ err: 'This product does not exist.' });
+    const restaurant = await Restaurant.findById(id);
+    if (!restaurant)
+      return res.status(400).json({ err: 'This restaurant does not exist.' });
 
-    res.json({ product });
-  } catch (err) {
-    return res.status(500).json({ err: err.message });
+    res.json({ restaurant });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
 };
