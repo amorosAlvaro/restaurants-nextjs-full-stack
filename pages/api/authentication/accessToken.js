@@ -29,8 +29,9 @@ export default async (req, res) => {
     res.json({
       access_token,
       userName: user.userName,
+      favorites: user.favorites,
     });
   } catch (error) {
-    return res.status(500).json({ err: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
