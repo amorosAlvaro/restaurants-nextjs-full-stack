@@ -8,9 +8,18 @@ const Home = (props) => {
   console.log('restaurants in home como:', restaurants.restaurants);
 
   return (
-    <Head>
-      <title>Home</title>
-    </Head>
+    <div>
+      <Head>
+        <title>Home</title>
+      </Head>
+      {restaurants.length === 0 ? (
+        <h2>No restaurants found...</h2>
+      ) : (
+        restaurants.map((restaurant) => {
+          <RestaurantItem key={restaurant._id} restaurant={restaurant} />;
+        })
+      )}
+    </div>
   );
 };
 
