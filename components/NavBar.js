@@ -10,23 +10,12 @@ function NavBar() {
           <i className="fas fa-utensils" aria-hidden="true"></i>
         </a>
       </Link>
-      {/* <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button> */}
-      <div className="collapse navbar-collapse justify-content-end">
+      <div className="navbar-collapse justify-content-end">
         <ul className="navbar-nav">
           <li className="nav-item">
             <Link href="/favorites">
               <a className="nav-link">
-                <i className="fab fa-gratipay" aria-hidden="true">
+                <i className="fab fa-gratipay " justif aria-hidden="true">
                   Favorites
                 </i>
               </a>
@@ -41,29 +30,6 @@ function NavBar() {
               </a>
             </Link>
           </li>
-          {/* <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdownMenuLink"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              User Name
-            </a>
-            <div
-              className="dropdown-menu"
-              aria-labelledby="navbarDropdownMenuLink"
-            >
-              <a className="dropdown-item" href="#">
-                Profile
-              </a>
-              <a className="dropdown-item" href="#">
-                Logout
-              </a>
-            </div>
-          </li> */}
         </ul>
       </div>
     </nav>
