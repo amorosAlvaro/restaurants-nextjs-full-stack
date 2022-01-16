@@ -1,13 +1,14 @@
-import connectDB from '../../../utils/connectDB';
+import connectDB from '../../../config/connect';
 import Users from '../../../models/userModel';
 import jwt from 'jsonwebtoken';
-import { createAccessToken } from '../../../helpers/createAcesToken';
+import createAccessToken from '../../../helpers/createAccessToken';
 
 connectDB();
 
 export default async (req, res) => {
   try {
-    const token = req.cookies.token;
+    const token = req.cookies.access_token;
+    console.log('token:', token);
     if (!token) {
       return res.status(400).json({ error: 'Pleas login' });
     }
@@ -18,19 +19,23 @@ export default async (req, res) => {
         .status(400)
         .json({ error: 'Your token is incorrect, try to login again' });
     }
+    console.log('result: ', result);
 
-    const user = await Users.findById({ id: user._id });
+    const user = await Users.findById(result.id);
+    console.log('user in controller', user);
     if (!user) {
       return res.status(400).json({ error: 'User does not exist' });
     }
 
     const access_token = createAccessToken({ id: user._id });
+    console.log('res in controller:', res);
 
     res.json({
       access_token,
       userName: user.userName,
     });
   } catch (error) {
+    console.log('catch');
     return res.status(500).json({ err: error.message });
   }
 };

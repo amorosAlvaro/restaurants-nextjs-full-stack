@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 
-const createAcesToken = (payload) => {
+const createAccessToken = (payload) => {
   const token = jwt.sign(payload, process.env.SECRET);
   return token;
 };
 
-export default createAcesToken;
+export default createAccessToken;
