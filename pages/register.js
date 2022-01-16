@@ -30,9 +30,7 @@ function Register() {
     }
     dispatch({ type: 'NOTIFY', payload: { loading: true } });
 
-    console.log('userData:', userData);
     const res = await postData('authentication/register', userData);
-    console.log('res:', res);
 
     if (res.error) {
       return dispatch({ type: 'NOTIFY', payload: { error: res.error } });
