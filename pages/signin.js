@@ -36,7 +36,11 @@ function SignIn() {
     dispatch({ type: 'NOTIFY', payload: { success: true } });
     dispatch({
       type: 'AUTHENTICATE',
-      payload: { token: res.access_token, userName: res.userName },
+      payload: {
+        token: res.access_token,
+        userName: res.userName,
+        favorites: res.favorites,
+      },
     });
 
     Cookies.set('access_token', res.access_token, {

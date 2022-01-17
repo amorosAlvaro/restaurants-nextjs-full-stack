@@ -5,7 +5,6 @@ import RestaurantItem from '../components/RestaurantItem';
 
 const Home = (props) => {
   const [restaurants, setRestaurants] = useState(props.restaurants);
-  console.log('restaurants in home como:', restaurants);
 
   return (
     <div className="restaurants">

@@ -7,7 +7,6 @@ import DataContext from '../store/GlobalContext';
 function RestaurantItem({ restaurant }) {
   const [state, dispatch] = useContext(DataContext);
   const { authentication } = state;
-  console.log('AUTH:', authentication);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

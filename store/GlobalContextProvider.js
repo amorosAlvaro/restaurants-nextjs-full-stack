@@ -18,6 +18,7 @@ const Provider = ({ children }) => {
           payload: {
             token: res.access_token,
             user: res.userName,
+            favorites: res.favorites,
           },
         });
       });
