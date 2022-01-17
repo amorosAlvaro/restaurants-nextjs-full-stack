@@ -25,4 +25,19 @@ const postData = async (url, post, token) => {
   return data;
 };
 
-export { postData, getData };
+const patchData = async (url, post, token) => {
+  const res = await fetch(`${baseUrl}/api/${url}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+    body: JSON.stringify(post),
+  });
+  console.log('res in service:', res);
+
+  const data = await res.json();
+  return data;
+};
+
+export { postData, getData, patchData };

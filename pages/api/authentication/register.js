@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import connectDB from '../../../config/connect';
 import Users from '../../../models/userModel';
 import validation from '../../../helpers/validation';

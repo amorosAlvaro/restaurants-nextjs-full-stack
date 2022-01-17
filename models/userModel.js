@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema({
   },
   favorites: [
     {
-      type: Object,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Restaurant',
     },
   ],
 });

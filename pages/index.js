@@ -1,11 +1,27 @@
 import Head from 'next/head';
+import { getData } from '../services/fetchData';
+import { useState } from 'react';
+import RestaurantItem from '../components/RestaurantItem';
 
-const Home = () => {
+const Home = (props) => {
+  const [restaurants, setRestaurants] = useState(props.restaurants);
+
   return (
-    <Head>
-      <title>Home</title>
-    </Head>
+    <div className="restaurants">
+      <Head>
+        <title>Home</title>
+      </Head>
+      {restaurants.map((restaurant) => (
+        <RestaurantItem key={restaurant._id} restaurant={restaurant} />
+      ))}
+    </div>
   );
 };
 
+export async function getServerSideProps() {
+  const res = await getData('restaurants');
+  return {
+    props: { restaurants: res.restaurants, result: res.result },
+  };
+}
 export default Home;

@@ -15,9 +15,10 @@ export default async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { userName, password } = req.body;
+    const { userName, password, favorites } = req.body;
 
     const user = await Users.findOne({ userName });
+
     if (!user) {
       return res.status(400).json({ error: 'This user name does not exist.' });
     }
@@ -28,10 +29,11 @@ const login = async (req, res) => {
     }
 
     const access_token = createAccessToken({ id: user._id });
+    console.log(favorites);
 
     res
       .status(200)
-      .json({ message: 'Login successful', access_token, userName });
+      .json({ message: 'Login successful', access_token, userName, user });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
