@@ -1,4 +1,4 @@
-import connectDB from '../../../utils/connectDB';
+import connectDB from '../../../config/connect';
 import Users from '../../../models/userModel';
 import auth from '../../../middleware/auth';
 
@@ -13,16 +13,19 @@ export default async (req, res) => {
 };
 
 const uploadFavorites = async (req, res) => {
+  console.log('controller');
   try {
     const result = await auth(req, res);
-    const { favorite } = req.body;
+    const restaurant = req.body._id;
+    console.log('result in controller:', result);
+    console.log('req.body in controller:', req.body);
 
     const newUser = await Users.findOneAndUpdate(
       { _id: result.id },
       {
         $push: {
           favorites: {
-            $each: [favorite],
+            $each: [restaurant],
             $position: -1,
           },
         },
